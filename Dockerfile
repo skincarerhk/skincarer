@@ -1,4 +1,5 @@
-FROM rocker/shiny-verse:latest
+FROM rocker/shiny
+
 # install R package dependencies
 RUN apt-get update && apt-get -qq -y install curl \
     libssl-dev \
@@ -37,9 +38,7 @@ COPY shiny-customized.config /etc/shiny-server/shiny-server.conf
 EXPOSE 8080
 
 
-COPY shiny-server.sh /usr/bin/shiny-server.sh
-
 USER shiny
 
 # run app
-CMD ["/usr/bin/shiny-server.sh"]
+CMD ["/usr/bin/shiny-server"]
