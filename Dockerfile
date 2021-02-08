@@ -38,7 +38,12 @@ RUN install2.r --error \
 COPY ./Shiny/ /srv/shiny-server/shiny/
 
 COPY shiny-customized.config /etc/shiny-server/shiny-server.conf
+
 # select port
-EXPOSE 3838
+EXPOSE 8080
+
+
+USER shiny
+
 # run app
 CMD ["/usr/bin/shiny-server.sh"]
