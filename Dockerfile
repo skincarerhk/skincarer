@@ -18,13 +18,14 @@ RUN apt-get update && apt-get install -y \
     libssh2-1-dev
 RUN R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('shinydashboard', repos='http://cran.rstudio.com/')"
-RUN R -e "devtools::install_github('andrewsali/shinycssloaders')"
-RUN R -e "devtools::install_github('rstudio/httpuv')"
-RUN R -e "install.packages('lubridate', repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('magrittr', repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('glue', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('shinydashboardPlus', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('shinyjs', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('shinybusy', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('shinyBS', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('shinyalert', repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('tidyverse', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('DT', repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('plotly', repos='http://cran.rstudio.com/')"
+
 
 ## Install packages from CRAN
 RUN install2.r --error \
@@ -35,6 +36,8 @@ RUN install2.r --error \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 ## assume shiny app is in build folder /shiny
 COPY ./Shiny/ /srv/shiny-server/shiny/
+
+COPY shiny-customized.config /etc/shiny-server/shiny-server.conf
 # select port
 EXPOSE 3838
 # run app
