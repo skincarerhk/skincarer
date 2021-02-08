@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libcairo2-dev \
     libxt-dev \
     libssh2-1-dev
+
 RUN R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('shinydashboard', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('shinydashboardPlus', repos='http://cran.rstudio.com/')"
@@ -27,13 +28,6 @@ RUN R -e "install.packages('tidyverse', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('DT', repos='http://cran.rstudio.com/')"
 
 
-## Install packages from CRAN
-RUN install2.r --error \
-    -r 'http://cran.rstudio.com' \
-    googleAuthR \
-    ## install Github packages
-    ## clean up
-    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 ## assume shiny app is in build folder /shiny
 COPY ./Shiny/ /srv/shiny-server/shiny/
 
@@ -42,6 +36,8 @@ COPY shiny-customized.config /etc/shiny-server/shiny-server.conf
 # select port
 EXPOSE 8080
 
+
+COPY shiny-server.sh /usr/bin/shiny-server.sh
 
 USER shiny
 
