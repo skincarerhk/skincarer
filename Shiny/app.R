@@ -42,25 +42,25 @@ brand_list<- list(
 
 #Customized javascript code
 #Cookie management
-jsCode <- '
-  shinyjs.getcookie = function(params) {
-    var cookie = Cookies.get("id");
-    if (typeof cookie !== "undefined") {
-      Shiny.onInputChange("jscookie", cookie);
-    } else {
-      var cookie = "";
-      Shiny.onInputChange("jscookie", cookie);
-    }
-  }
-  shinyjs.setcookie = function(params) {
-    Cookies.set("id", escape(params), { expires: 0.5 });  
-    Shiny.onInputChange("jscookie", params);
-  }
-  shinyjs.rmcookie = function(params) {
-    Cookies.remove("id");
-    Shiny.onInputChange("jscookie", "");
-  }
-'
+# jsCode <- '
+#   shinyjs.getcookie = function(params) {
+#     var cookie = Cookies.get("id");
+#     if (typeof cookie !== "undefined") {
+#       Shiny.onInputChange("jscookie", cookie);
+#     } else {
+#       var cookie = "";
+#       Shiny.onInputChange("jscookie", cookie);
+#     }
+#   }
+#   shinyjs.setcookie = function(params) {
+#     Cookies.set("id", escape(params), { expires: 0.5 });  
+#     Shiny.onInputChange("jscookie", params);
+#   }
+#   shinyjs.rmcookie = function(params) {
+#     Cookies.remove("id");
+#     Shiny.onInputChange("jscookie", "");
+#   }
+# '
 
 # UI
 ui <- dashboardPage(
@@ -81,8 +81,8 @@ ui <- dashboardPage(
   dashboardBody(
     tags$head(
       useShinyjs(),
-      tags$script(src = "js/js.cookie.min.js"), #Import cookie management package
-      extendShinyjs(text = jsCode),  #For cookie management
+      #tags$script(src = "js/js.cookie.min.js"), #Import cookie management package
+      #extendShinyjs(text = jsCode),  #For cookie management
       useShinyalert(),
       add_busy_spinner(spin = "fading-circle", height = "30px", width = "30px"),
       tags$meta(name = "og:image", content = "Img/logo.jpg"),
