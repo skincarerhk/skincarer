@@ -1,4 +1,4 @@
-FROM rocker/shiny
+FROM rocker/shiny-verse:latest
 
 # install R package dependencies
 RUN apt-get update && apt-get -qq -y install curl \
